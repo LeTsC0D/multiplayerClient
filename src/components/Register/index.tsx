@@ -1,5 +1,4 @@
 import React,{useState } from 'react'
-import styled from "styled-components";
 import {
   Button,Input
 } from 'reactstrap';
@@ -10,10 +9,6 @@ interface setAuthProps {
 }
 
 
-
-
-
-
 export default function Register({setOpen}: setAuthProps) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -22,7 +17,7 @@ export default function Register({setOpen}: setAuthProps) {
 
     const navigate = useNavigate();
     const navigateToLogin = () => {
-      // 👇️ navigate to /contacts
+      // 👇️ navigate to /login
       setOpen(true)
       navigate('/login');
     };
@@ -34,14 +29,14 @@ export default function Register({setOpen}: setAuthProps) {
       
        
       <Input
-        placeholder="Your Name"
+        placeholder="Your Name" value={name}
         onChange={(event) => {
           setName(event.target.value);
         }}
       /> 
       <br/>
       <Input
-        placeholder="Username"
+        placeholder="Username" value={username}
         type="password"
         onChange={(event) => {
           setEmail(event.target.value);
@@ -49,14 +44,14 @@ export default function Register({setOpen}: setAuthProps) {
       />
       <br/>
       <Input
-        placeholder="Email"
+        placeholder="Email" value={email}
         onChange={(event) => {
           setUsername(event.target.value);
         }}
       /> 
       <br/>
-      <Input
-        placeholder="Password"
+      <Input 
+        placeholder="Password" value={password}
         type="password"
         onChange={(event) => {
           setPassword(event.target.value);

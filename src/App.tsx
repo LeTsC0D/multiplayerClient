@@ -13,16 +13,6 @@ import {
 import {Routes, Route, useNavigate} from 'react-router-dom';
 import Register from "./components/Register";
 
-const AppContainer = styled.div`
-  width: 50%;
-  height: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1em;
-  border-radius: 50%;
-  box-shadow: 0 0 6px 4px #fff;
-`;
 
 const WelcomeText = styled.h1`
   margin: 0;
@@ -63,9 +53,7 @@ function App() {
       
   };
 
-  const logout=()=>{
-    localStorage.removeItem("tictoe")
-  }
+
   const navigate = useNavigate();
   const navigateToLogin = () => {
     // 👇️ navigate to /login
