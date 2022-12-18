@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import "./App.css";
 // import { io } from "socket.io-client";
@@ -46,7 +46,7 @@ function App() {
 
   const connectSocket = async () => {
     await socketService
-      .connect("http://localhost:9000")
+      .connect("https://beautiful-cranachan-060455.netlify.app:9000")
       .catch((err) => {
         console.log("Error: ", err);
       });
