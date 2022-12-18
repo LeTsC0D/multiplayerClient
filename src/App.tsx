@@ -1,7 +1,6 @@
-﻿import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import "./App.css";
-// import { io } from "socket.io-client";
 import socketService from "./services/socketService";
 import { JoinRoom } from "./components/joinRoom";
 import GameContext, { IGameContextProps } from "./gameContext";
@@ -13,14 +12,10 @@ import {
 import {Routes, Route, useNavigate} from 'react-router-dom';
 import Register from "./components/Register";
 
-
 const WelcomeText = styled.h1`
   margin: 0;
   color: #8e44ad;
-`;
-
-
-
+  `;
 
 const Mobile = styled.div`
   height: 100vh;
@@ -45,12 +40,12 @@ function App() {
   const [open,setOpen]=useState(false)
 
   const connectSocket = async () => {
+    // eslint-disable-next-line
     await socketService
-      .connect("https://beautiful-cranachan-060455.netlify.app:9000")
+      .connect("https://multiplayerservicee.netlify.app")
       .catch((err) => {
         console.log("Error: ", err);
-      });
-      
+      });   
   };
 
 
