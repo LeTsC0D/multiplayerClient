@@ -3,6 +3,7 @@ import styled from "styled-components";
 import gameContext from "../../gameContext";
 import gameService from "../../services/gameService";
 import socketService from "../../services/socketService";
+import { useNavigate} from 'react-router-dom';
 
 interface IJoinRoomProps {}
 
@@ -48,6 +49,7 @@ const JoinButton = styled.button`
 export function JoinRoom(props: IJoinRoomProps) {
   const [roomName, setRoomName] = useState("");
   const [isJoining, setJoining] = useState(false);
+  const navigate = useNavigate();
 
   const { setInRoom } = useContext(gameContext);
 
@@ -73,6 +75,8 @@ export function JoinRoom(props: IJoinRoomProps) {
     if (joined) setInRoom(true);
 
     setJoining(false);
+    navigate('/');
+
   };
 
   return (

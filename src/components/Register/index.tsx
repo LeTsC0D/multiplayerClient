@@ -1,0 +1,70 @@
+import React,{useState } from 'react'
+import styled from "styled-components";
+import {
+  Button,Input
+} from 'reactstrap';
+import { useNavigate} from 'react-router-dom';
+
+interface setAuthProps {
+    setOpen:(state: boolean)=>void;
+}
+
+
+
+
+
+
+export default function Register({setOpen}: setAuthProps) {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+
+    const navigate = useNavigate();
+    const navigateToLogin = () => {
+      // 👇️ navigate to /contacts
+      setOpen(true)
+      navigate('/login');
+    };
+
+
+  return (
+
+    <div >
+      
+       
+      <Input
+        placeholder="Your Name"
+        onChange={(event) => {
+          setName(event.target.value);
+        }}
+      /> 
+      <br/>
+      <Input
+        placeholder="Username"
+        type="password"
+        onChange={(event) => {
+          setEmail(event.target.value);
+        }}
+      />
+      <br/>
+      <Input
+        placeholder="Email"
+        onChange={(event) => {
+          setUsername(event.target.value);
+        }}
+      /> 
+      <br/>
+      <Input
+        placeholder="Password"
+        type="password"
+        onChange={(event) => {
+          setPassword(event.target.value);
+        }}
+      />
+      <br/>      
+      <Button onClick={navigateToLogin}> Register</Button>
+    </div>
+  
+  )
+}

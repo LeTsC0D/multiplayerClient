@@ -7,6 +7,11 @@ import { JoinRoom } from "./components/joinRoom";
 import GameContext, { IGameContextProps } from "./gameContext";
 import { Game } from "./components/game";
 import Login from "./components/Login";
+import {
+  Button
+} from 'reactstrap';
+import {Routes, Route, useNavigate} from 'react-router-dom';
+import Register from "./components/Register";
 
 const AppContainer = styled.div`
   width: 50%;
@@ -24,14 +29,21 @@ const WelcomeText = styled.h1`
   color: #8e44ad;
 `;
 
-const MainContainer = styled.div`
-  width: 100%;
-  height: 100%;
+
+
+
+const Mobile = styled.div`
+  height: 100vh;
+  width: 30vw;
   display: flex;
-  align-items: center;
   justify-content: center;
-  position:relative;
-`;
+  align-items: center;
+  background-color:#D3D3D3;
+  flex-direction: column;
+  border-radius: 30px;
+  `;
+
+
 
 function App() {
   const [isInRoom, setInRoom] = useState(false);
@@ -40,6 +52,7 @@ function App() {
   const [isGameStarted, setGameStarted] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
   const [previousLoginData,setPreviouslogin]=useState(false);
+  const [open,setOpen]=useState(false)
 
   const connectSocket = async () => {
     await socketService
@@ -53,10 +66,27 @@ function App() {
   const logout=()=>{
     localStorage.removeItem("tictoe")
   }
+  const navigate = useNavigate();
+  const navigateToLogin = () => {
+    // 👇️ navigate to /login
+    setOpen(true)
+    navigate('/login');
+  };
+
+  const navigateToRegister = () => {
+    // 👇️ navigate to /register
+    setOpen(true)
+    navigate('/register');
+  };
 
   useEffect(() => {
     connectSocket();
   }, []);
+
+  // useEffect(() => {
+  //   setOpen(false)
+  // },[]);
+
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(()=>{
@@ -79,26 +109,45 @@ function App() {
   return (
     <GameContext.Provider value={gameContextValue}>
 
-      <AppContainer>
-        <WelcomeText>Welcome to Tic-Tac-Toe</WelcomeText>
-        <>
-        {
-          console.log(isAuth)
+      {/* <AppContainer> */}
+      <center>
+      <Mobile>
+        
           
-        }
-        {
-          console.log(previousLoginData)
-        }
-      </>
-        {(!isAuth && !previousLoginData) && <Login setIsAuth={setIsAuth}/>}
-        <MainContainer>
-          {(isAuth || previousLoginData) && !isInRoom && <JoinRoom />}
-          {(isAuth || previousLoginData) && isInRoom && <Game />}
-        </MainContainer>
-        <div>
-        <button onClick={logout}> Logout</button>
-        </div>
-      </AppContainer>
+          <WelcomeText>Welcome to Tic-Tac-Toe</WelcomeText>
+            <>
+            {
+              console.log(isAuth)
+              
+            }
+            {
+              console.log(previousLoginData)
+            }
+          </>            
+          {/* {(!isAuth && !previousLoginData) && <Login setIsAuth={setIsAuth}/>} */}
+          {/* <MainContainer> */}
+            {/* {(isAuth || previousLoginData) && !isInRoom && <JoinRoom />} */}
+            {(isAuth || previousLoginData) && isInRoom && <Game />}
+          {/* </MainContainer> */}
+          {
+          !open && <div> 
+          <Button style={{alignItems:"center",marginTop:50,position:"relative"}} onClick={navigateToLogin}> Login</Button>
+          <br/><Button style={{alignItems:"center",marginTop:50,position:"relative"}} onClick={navigateToRegister}> Register</Button>
+          </div>
+            }
+
+       
+        <Routes>
+        
+          <Route path="/login" element={<Login setIsAuth={setIsAuth} setOpen={setOpen}/>} />
+          <Route path="/register" element={<Register setOpen={setOpen}/>} />
+          <Route path="/joinroom" element={<JoinRoom />} />
+        </Routes>
+
+        </Mobile>
+        </center>
+
+      {/* </AppContainer> */}
     </GameContext.Provider>
   );
 }

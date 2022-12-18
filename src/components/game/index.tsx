@@ -3,17 +3,19 @@ import styled from "styled-components";
 import gameContext from "../../gameContext";
 import gameService from "../../services/gameService";
 import socketService from "../../services/socketService";
-
-const GameContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-family: "Zen Tokyo Zoo", cursive;
-  position: relative;
-`;
+import { useNavigate} from 'react-router-dom';
+import {
+  Button
+} from 'reactstrap';
 
 const RowContainer = styled.div`
-  width: 100%;
-  display: flex;
+height: 20vh;
+width: 20vw;
+display: flex;
+justify-content: center;
+align-items: center;
+background-color:#D3D3D3;
+border-radius: 30px;
 `;
 
 interface ICellProps {
@@ -68,6 +70,7 @@ const O = styled.span`
   }
 `;
 
+
 export type IPlayMatrix = Array<Array<string | null>>;
 export interface IStartGame {
   start: boolean;
@@ -75,6 +78,8 @@ export interface IStartGame {
 }
 
 export function Game() {
+  const navigate = useNavigate();
+  const { setInRoom } = useContext(gameContext);
   const [matrix, setMatrix] = useState<IPlayMatrix>([
     [null, null, null],
     [null, null, null],
@@ -195,8 +200,16 @@ export function Game() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const navigateToLogin = () => {
+    // 👇️ navigate to /login
+    setInRoom(false);
+    navigate('/login');
+  };
+
   return (
-    <GameContainer>
+    <div>
+    {/* // <GameContainer> */}
+
       {!isGameStarted && (
         <h2>Waiting for Other Player to Join to Start the Game!</h2>
       )}
@@ -204,6 +217,7 @@ export function Game() {
       {matrix.map((row, rowIdx) => {
         return (
           <RowContainer>
+          <>
             {row.map((column, columnIdx) => (
               <Cell
                 borderRight={columnIdx < 2}
@@ -223,9 +237,13 @@ export function Game() {
                 ) : null}
               </Cell>
             ))}
+            </>
           </RowContainer>
+
         );
       })}
-    </GameContainer>
+    <Button style={{marginTop:20,zIndex:110}} onClick={navigateToLogin}> Logout</Button>
+    {/* </GameContainer> */}
+    </div>
   );
 }
