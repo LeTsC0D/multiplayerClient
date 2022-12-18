@@ -5,4 +5,4 @@
 ![](Capture4.PNG)
 ![](Capture5.PNG)
 
-Hosted URL: https://jocular-kashata-620031.netlify.app
+Hosted URL: https://multiplayergamee.netlify.app/
