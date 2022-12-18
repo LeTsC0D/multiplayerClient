@@ -42,7 +42,7 @@ function App() {
   const connectSocket = async () => {
     // eslint-disable-next-line
     await socketService
-      .connect("https://multiplayerservicee.netlify.app")
+      .connect("http://localhost:9000")
       .catch((err) => {
         console.log("Error: ", err);
       });   
